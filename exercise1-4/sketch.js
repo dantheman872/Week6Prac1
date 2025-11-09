@@ -1,5 +1,7 @@
 const KEY_WIDTH = 50;
 const SPACE_BAR_WIDTH = KEY_WIDTH * 3 + 20;
+let message = ""
+let newLetter;
 let keys = [
     { name: "Q", x: 5, y: 420 }, { name: "W", x: 65, y: 420},
     { name: "E", x: 125, y: 420}, { name: "R", x: 185, y: 420},
@@ -18,13 +20,17 @@ let keys = [
 ];
 
 function setup() {
+
     createCanvas(600, 600);
     textAlign(CENTER, CENTER);
 }
 
 function draw() {
+
     background(255);
     drawKeyboard();
+    isMouseOverLetter();
+    text(message, width/2, height/2)
 }
 
 /**
@@ -39,4 +45,25 @@ function drawKeyboard() {
         }
         text(k.name, k.x, k.y, KEY_WIDTH, KEY_WIDTH);
     }
+}
+
+function addLetter(){
+
+    message += newLetter
+}
+
+function isMouseOverLetter(){
+
+   for(let i = 0; i < keys.length; i++){
+
+        if(mouseX < keys[i].x + KEY_WIDTH && mouseX > keys[i].x && mouseY < keys[i].y + KEY_WIDTH && mouseY > keys[i].y){
+
+            newLetter = keys[i].name
+        }         
+    }    
+}
+
+function mouseClicked(){
+
+    addLetter()
 }
